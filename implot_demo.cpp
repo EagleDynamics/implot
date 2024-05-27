@@ -57,9 +57,9 @@ struct WaveData {
     double X, Amp, Freq, Offset;
     WaveData(double x, double amp, double freq, double offset) { X = x; Amp = amp; Freq = freq; Offset = offset; }
 };
-ImPlotPoint SineWave(int idx, void* wave_data);
-ImPlotPoint SawWave(int idx, void* wave_data);
-ImPlotPoint Spiral(int idx, void* wave_data);
+ImPlotPoint SineWave(void* wave_data, int idx);
+ImPlotPoint SawWave(void* wave_data, int idx);
+ImPlotPoint Spiral(void* wave_data, int idx);
 
 // Example for Tables section.
 void Sparkline(const char* id, const float* values, int count, float min_v, float max_v, int offset, const ImVec4& col, const ImVec2& size);
@@ -1255,7 +1255,7 @@ void Demo_AutoFittingData() {
 
 //-----------------------------------------------------------------------------
 
-ImPlotPoint SinewaveGetter(int i, void* data) {
+ImPlotPoint SinewaveGetter(void* data, int i) {
     float f = *(float*)data;
     return ImPlotPoint(i,sinf(f*i));
 }
@@ -2303,19 +2303,19 @@ void ShowDemoWindow(bool* p_open) {
 
 namespace MyImPlot {
 
-ImPlotPoint SineWave(int idx, void* data) {
+ImPlotPoint SineWave(void* data, int idx) {
     WaveData* wd = (WaveData*)data;
     double x = idx * wd->X;
     return ImPlotPoint(x, wd->Offset + wd->Amp * sin(2 * 3.14 * wd->Freq * x));
 }
 
-ImPlotPoint SawWave(int idx, void* data) {
+ImPlotPoint SawWave(void* data, int idx) {
     WaveData* wd = (WaveData*)data;
     double x = idx * wd->X;
     return ImPlotPoint(x, wd->Offset + wd->Amp * (-2 / 3.14 * atan(cos(3.14 * wd->Freq * x) / sin(3.14 * wd->Freq * x))));
 }
 
-ImPlotPoint Spiral(int idx, void*) {
+ImPlotPoint Spiral(void*, int idx) {
     float r = 0.9f;            // outer radius
     float a = 0;               // inner radius
     float b = 0.05f;           // increment per rev

@@ -585,7 +585,7 @@ struct ImPlotInputMap {
 typedef int (*ImPlotFormatter)(double value, char* buff, int size, void* user_data);
 
 // Callback signature for data getter.
-typedef ImPlotPoint (*ImPlotGetter)(int idx, void* user_data);
+typedef ImPlotPoint (*ImPlotGetter)(void* user_data, int idx);
 
 // Callback signature for axis transform.
 typedef double (*ImPlotTransform)(double value, void* user_data);

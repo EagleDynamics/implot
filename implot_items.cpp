@@ -576,7 +576,7 @@ struct GetterFuncPtr {
         Count(count)
     { }
     template <typename I> IMPLOT_INLINE ImPlotPoint operator()(I idx) const {
-        return Getter(idx, Data);
+        return Getter(Data, idx);
     }
     ImPlotGetter Getter;
     void* const Data;
